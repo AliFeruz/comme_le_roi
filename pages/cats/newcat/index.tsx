@@ -1,5 +1,6 @@
 import RootLayout from '@/components/RootLayout'
 import axios from 'axios';
+import { useRouter } from 'next/router';
 import React, { useState } from 'react'
 
 type Props = {}
@@ -9,10 +10,18 @@ const NewCat = (props: Props) => {
   const [description, setDescription] = useState('');
   const [dataBirth, setDataBirth] = useState ('');
 
+  const router = useRouter();
+
   async function saveCats(e: React.FormEvent) {
     e.preventDefault();
     const data = {name, description, dataBirth}
-    await axios.post('/api/cats', data)
+    const response = await axios.post('/api/cats', data);
+    if(response.status === 200){
+      setName('');
+      setDescription('');
+      setDataBirth('');
+      router.push('/cats')
+    }
   }
 
   return (

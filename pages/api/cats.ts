@@ -11,6 +11,16 @@ export default async function handler(
     const {method} = req;
     await mongooseConnect();
 
+    if(method === 'GET') {
+        if(req.query?.id){
+            const cat = await Cats.findById({_id: req.query.id})
+            res.status(200).json(cat)
+        } else {
+            const cats = await Cats.find({});
+            res.status(200).json(cats)
+        }
+    }
+
 
     if(method === 'POST') {
         const {name, description, dataBirth} = req.body;

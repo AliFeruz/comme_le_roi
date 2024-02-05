@@ -20,10 +20,6 @@ input:focus, textarea:focus{
 }
 
 
-.topbar {
-  @apply sticky top-0 z-50 md:hidden bg-emerald-700 w-full;
-}
-
 @layer components{
   .flex-between {
       @apply flex items-center justify-between;

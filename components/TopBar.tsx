@@ -20,28 +20,23 @@ const Topbar = () => {
   
     return (
       <section>
-        <div className="flex-between h-20
-      fixed top-0 z-30 w-full drop-shadow bg-gradient-to-l from-emerald-50 to-emerald-400 py-2">
+        <div className="flex-between h-20 md:hidden
+      fixed top-0 z-30 w-full drop-shadow bg-gradient-to-l from-lavanda-50 to-lavanda-400 py-2">
         <div className="flex-between mx-auto w-5/6">
-        <Link href={'/'}><h1 className="text-3xl font-bold text-gray-600 p-1">Comme Le Roi</h1></Link>
-          {isAboveMediumScreens ? (
-             <div className='flex bg-emerald-300 border border-emerald-50 drop-shadow-xl mx-1 gap-2 p-1 rounded-lg items-center'>
-             <img src={session?.user?.image ?? 'no image'} alt="userimage" className="w-8 rounded-full h-8"/>
-             <span className="px-2">{session?.user?.name}</span>
-           </div>
-          ) : (
-            <button className="rounded-full bg-emerald-300 p-1 border-2 border-emerald-50"
+        <Link href={'/'}><h1 className="text-3xl font-bold text-slate-600 p-1">Comme Le Roi</h1></Link>
+          
+            <button className="rounded-full bg-lavanda-300 p-1 border-2 border-emerald-50"
              onClick={() => setIsMenuToggled(!isMenuToggled)}>
             <Bars3Icon className="h-8 w-8 text-emerald-50"/>
             </button>
-          )}
+        
         </div>
         </div>
         
           
           {!isAboveMediumScreens && isMenuToggled && (
             <div className="fixed right-0 bottom-0 z-40 
-            h-full w-[300px] bg-emerald-200">
+            h-full w-[300px] bg-lavanda-200">
             <div className="flex justify-end p-12">
            <button onClick={() => setIsMenuToggled(!isMenuToggled)}>
            <XMarkIcon className="h-8 w-8 text-emerald-950"/>
