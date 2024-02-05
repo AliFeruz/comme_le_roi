@@ -4,8 +4,21 @@
 
 
 h1 {
-  @apply text-gray-700
+  @apply text-lavanda-950
 }
+
+label {
+  @apply text-lavanda-900 text-xl mb-2
+}
+
+input, textarea {
+  @apply border-2 border-lavanda-400 rounded-md p-1 w-full mb-2;
+}
+
+input:focus, textarea:focus{
+  @apply border-lavanda-600
+}
+
 
 .topbar {
   @apply sticky top-0 z-50 md:hidden bg-emerald-700 w-full;
@@ -15,5 +28,10 @@ h1 {
   .flex-between {
       @apply flex items-center justify-between;
   }
+
+  .btn-primary {
+    @apply bg-lavanda-400 hover:bg-lavanda-200 py-1.5 my-2 px-2.5 w-auto rounded-md;
+  }
+  
 };
 

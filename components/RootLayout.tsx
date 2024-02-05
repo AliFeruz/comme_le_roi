@@ -17,27 +17,29 @@ const RootLayout = ({ children }: { children: ReactNode }) => {
            </div>;
   }
 
-  if (!session || status !== "authenticated") {
+  if(!session) {
     return (
-      <main className='bg-sky-900 h-screen w-screen flex items-center'>
-        <div className="text-center w-full">
-          <button onClick={() => signIn('google')} className="bg-sky-400 p-2 px-4 rounded-lg">Login with Google</button>
-        </div>
-      </main>
-    );
+      <main
+      className={'h-screen w-screen flex items-center justify-center bg-gradient-to-r from-lavanda-200 to-lavanda-400'}
+    >
+      <div>
+      <button onClick={() => signIn('google')} className="bg-lavanda-400 border-4 border-lavanda-600 text-lavanda-900 py-2 px-4 rounded-lg hover:bg-lavanda-100">Login with Google</button>
+      </div>
+    </main>
+    )
   }
 
 
   return (
-    <main className='flex bg-emerald-100'>
-      <Topbar/>
+    <main className='flex min-h-screen bg-lavanda-100'>
+      {/* <Topbar/> */}
       {isAboveMediumScreens && (
-        <div className='w-2/5 sx:hidden mt-24'>
+        <div className='w-2/6 sx:hidden mt-4'>
         <LeftSideBar/>
         </div>
       )}
       
-      <div className="bg-emerald-50 mt-24 min-h-screen w-full p-4 md:w-3/5 m-2 md:mr-3 rounded-lg">
+      <div className="bg-lavanda-50 border border-lavanda-500 drop-shadow-xl mt-4 h-auto w-full p-4 md:w-4/6 m-2 md:mr-3 rounded-lg">
       {children}
       </div> 
     </main>
