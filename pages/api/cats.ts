@@ -21,6 +21,11 @@ export default async function handler(
         }
     }
 
+    if (method === 'DELETE') {
+        const {_id} = req.query;
+        await Cats.deleteOne({_id});
+        res.status(200).json(true);
+      }
 
     if(method === 'POST') {
         const {name, description, dataBirth} = req.body;

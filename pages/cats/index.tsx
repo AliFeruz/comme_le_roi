@@ -6,9 +6,8 @@ import axios from 'axios'
 import { Cat } from '@/types'
 import CatCard from '@/components/CatCard'
 
-type Props = {}
 
-const Cats = (props: Props) => {
+const Cats = () => {
   const [cats, setCats] = useState<Cat[]>([])
 
   useEffect(()=> {

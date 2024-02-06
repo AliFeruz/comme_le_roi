@@ -13,9 +13,10 @@ const CatsSchema = new Schema({
         type: String,
         required: true
     },
-    images: {
-        type: [String],
-    },
+    images: [{
+        id: { type: mongoose.Types.ObjectId },
+        link: { type: String }
+    }],
     category: {
         type: mongoose.Types.ObjectId, ref: 'Category'
     },

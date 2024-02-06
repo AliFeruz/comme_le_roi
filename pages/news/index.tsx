@@ -1,11 +1,22 @@
+import NewsCard from '@/components/NewsCard'
 import RootLayout from '@/components/RootLayout'
+import { News } from '@/types'
 import { PlusCircleIcon } from '@heroicons/react/24/outline'
+import axios from 'axios'
 import Link from 'next/link'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
-type Props = {}
 
-const News = (props: Props) => {
+
+const News = () => {
+  const [news, setNews] = useState<News[]>([])
+
+  useEffect(()=> {
+    axios.get('/api/news').then(res => {
+      setNews(res.data)
+    })
+  },[])
+
   return (
     <RootLayout>
       <div className='mt-3'>
@@ -14,7 +25,14 @@ const News = (props: Props) => {
           <h1 className='text-2xl ml-3 font-semibold'>Add some New's</h1>
         </Link>
       </div>
-    <div>News</div>
+      <div className='p-2 my-4 text-start'>
+      <h1 className='text-2xl font-bold'>Cats</h1>
+      </div>
+      <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4'>
+        {news.slice().reverse().map((news) => (
+          <NewsCard key={news._id} news={news} />
+        ))}
+      </div>
     </RootLayout>
    
   )

@@ -1,32 +1,33 @@
 import React from 'react';
 import Link from 'next/link';
 import { PencilIcon, TrashIcon } from "@heroicons/react/24/solid";
-import { Cat } from '@/types';
+import { News } from '@/types';
 import { withSwal } from 'react-sweetalert2';
 import axios from 'axios';
 import { useRouter } from 'next/router';
 
 type Props = {
-  cat: Cat;
+  news: News;
   swal: any;
   };
 
 
-const CatCard = ({ cat, swal, ...props }: Props) => {
-    const router = useRouter();
+const NewsCard = ({ news, swal, ...props }: Props) => {
+  const router = useRouter();
 
-    function deleteCat(cat: Cat){
+
+    function deleteNews(news: News){
         swal.fire({
             title: 'Are you sure?',
-            text: `Do you want to delete ${cat.name}`,
+            text: `Do you want to delete ${news.title}`,
             showCancelButton: true,
             confirmButtonText: 'Yes, Delete!',
             confirmButtonColor: '#e8aef9',
             reverseButtons: true
         }).then(async (result: any) => {
             if (result.isConfirmed) {
-                const {_id} = cat;
-                await axios.delete('/api/cats?_id=' + _id);
+                const {_id} = news;
+                await axios.delete('/api/news?_id=' + _id);
                 router.reload();
             }
         })
@@ -34,29 +35,27 @@ const CatCard = ({ cat, swal, ...props }: Props) => {
 
     return (
         <div className='bg-lavanda-200 drop-shadow-lg rounded-md p-4'>
-          <div className='flex gap-3 items-center p-2 mb-3 justify-between'>
-            <button onClick={() => deleteCat(cat)}>
+          <div className='flex gap-3 items-center p-2 mb-2 justify-between'>
+            <button onClick={() => deleteNews(news)}>
             <TrashIcon className="w-5 h-5 text-lavanda-500"/>
             </button>
-            <Link href={`/cats/edit/${cat._id}`}>
+            <Link href={`/news/edit/${news._id}`}>
               <PencilIcon className="w-5 h-5 text-lavanda-500"/>
             </Link>
           </div>
           <div className='p-1 border-t border-lavanda-500'>
-            <h1 className='text-xl mb-2'>{cat.name}</h1>
+            <h1 className='text-xl mt-1 mb-2'>{news.title}</h1>
           </div>
           <div className="p-1 h-auto rounded-md">
-          <p className="text text-lg">{cat.description}</p>
+          <p className="text text-lg">{news.info}</p>
           </div>
           {/* <div className='p-1'>
             <img src={cat?.images[0]} alt="product img" className='h-24 w-24 rounded-md'/>
           </div> */}
-          <div className='p-1 mb-2'>
-          <p className='text-gray-600'>{cat.dataBirth}</p>
-          </div>
+          
         
         </div>
       )
 };
 
-export default withSwal(CatCard);
+export default withSwal(NewsCard);
