@@ -1,32 +1,36 @@
 import RootLayout from '@/components/RootLayout'
+import CatForm from '@/components/forms/CatForm'
 import { PencilIcon, ReceiptRefundIcon } from '@heroicons/react/24/outline'
 import axios from 'axios'
 import { useRouter } from 'next/router'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 
-type Props = {}
 
-const EditCat = (props: Props) => {
+const EditCat = () => {
+  const [catInfo, setCatInfo] = useState(null)
   const router = useRouter();
   const {id} = router.query;
 
   useEffect(() => {
     if(!id) {
-      ReceiptRefundIcon
+      return;
     }
     axios.get('/api/cats?id=' +id).then((res) => {
-      console.log(res.data)
+      setCatInfo(res.data)
     }
     )
   },[id])
 
   return (
     <RootLayout>
-      <div className='flex bg-lavanda-200 w-1/2 mt-3 rounded-lg py-2 px-2.5'>
-      <PencilIcon className='w-8 h-8 text-lavanda-500'/>
-      <h1 className='text-2xl ml-3 font-semibold'>Edit cat data</h1>
+      
+      <div className='m-4'>
+      <h1 className='text-3xl text-start text-lavanda-700'>Edit cat info</h1>
       </div>
-    <div className='mt-3'>EditCat</div>
+      <div className='flex justify-center w-full'>
+      {catInfo && <CatForm catInfo={catInfo}/>}
+      </div>
+         
     </RootLayout>
     
   )

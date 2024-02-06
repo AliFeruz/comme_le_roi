@@ -31,7 +31,7 @@ const CatCard = ({ cat, swal, ...props }: Props) => {
     }
 
     return (
-        <div className='bg-lavanda-100 drop-shadow-lg rounded-md p-4'>
+        <div className='bg-lavanda-200 drop-shadow-lg rounded-md p-4'>
           <div className='flex gap-3 items-center p-2 mb-3 justify-between'>
             <button onClick={() => deleteCat(cat)}>
             <TrashIcon className="w-5 h-5 text-lavanda-500"/>

@@ -32,5 +32,10 @@ export default async function handler(
         res.status(200).json(catsDoc);
     }
 
+    if(method === 'PUT') {
+        const {name, description, dataBirth, _id} = req.body;
+        const updatedCatInfo = await Cats.findOneAndUpdate({_id}, {name, description, dataBirth})
+        res.status(200).json(updatedCatInfo);
+    }
   
 }
