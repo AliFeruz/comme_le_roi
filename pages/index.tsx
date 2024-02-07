@@ -9,8 +9,12 @@ export default function Home() {
 
   return (
     <RootLayout>
-      <div>Hello world</div>
-      <span className="px-2">{session?.user?.name}</span>
+      <div className="p-6 my-4">
+        <h1 className="text-xl text-center">
+          Hello, <span className="text-lavanda-600 text-2xl">{session?.user?.name}!</span>
+        </h1>
+      </div>
+     
     </RootLayout>
   );
 }

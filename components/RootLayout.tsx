@@ -23,10 +23,12 @@ const RootLayout = ({ children }: { children: ReactNode }) => {
       className='h-screen w-screen flex items-center 
       justify-center bg-gradient-to-r from-lavanda-200 to-lavanda-400'
     >
-      <div>
+      <div className='w-[450px] h-[300px] flex flex-col items-center justify-center rounded-md'>
+        <h1 className='p-2 my-4 text-2xl'>This website is belong to cattery Comme Le Roi 
+        and only owner of the website can login. If you have any questions, please write an email to: aliferuzcode@gmail.com</h1>
       <button onClick={() => signIn('google')} className="bg-lavanda-400 
-      border-4 border-lavanda-600 text-lavanda-900 py-2 px-4 rounded-lg 
-      hover:bg-lavanda-100">Login with Google</button>
+      border-4 border-lavanda-600 h-[60px] w-[120px] text-slate-50 object-fit rounded-md 
+      hover:bg-lavanda-100 hover:text-slate-600">Login with Google</button>
       </div>
     </main>
     )

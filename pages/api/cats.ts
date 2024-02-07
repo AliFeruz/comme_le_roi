@@ -3,7 +3,6 @@ import { Cats } from "@/models/cats";
 import type { NextApiRequest, NextApiResponse } from "next";
 
 
-
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse,
@@ -28,18 +27,19 @@ export default async function handler(
       }
 
     if(method === 'POST') {
-        const {name, description, dataBirth} = req.body;
+        const {name, description, dataBirth, images} = req.body;
         const catsDoc = await Cats.create({
             name,
             description,
-            dataBirth
+            dataBirth,
+            images
         });
         res.status(200).json(catsDoc);
     }
 
     if(method === 'PUT') {
-        const {name, description, dataBirth, _id} = req.body;
-        const updatedCatInfo = await Cats.findOneAndUpdate({_id}, {name, description, dataBirth})
+        const {name, description, dataBirth, _id, images} = req.body;
+        const updatedCatInfo = await Cats.findOneAndUpdate({_id}, {name, description, dataBirth, images})
         res.status(200).json(updatedCatInfo);
     }
   

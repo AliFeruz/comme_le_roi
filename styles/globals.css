@@ -28,6 +28,8 @@ input:focus, textarea:focus{
   .btn-primary {
     @apply bg-lavanda-400 hover:bg-lavanda-200 py-1.5 my-2 px-2.5 w-auto rounded-md;
   }
-  
+  .hover-visible {
+    @apply absolute top-0 left-0 w-full h-full opacity-0 bg-black bg-opacity-50 transition-opacity duration-300 group-hover:opacity-100
+  }
 };
 

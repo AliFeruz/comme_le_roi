@@ -32,30 +32,49 @@ const CatCard = ({ cat, swal, ...props }: Props) => {
         })
     }
 
+    const backgroundImageStyle = {
+      backgroundImage: `url(${cat.images && cat.images.length > 0 ? cat.images[0].link : ''})`,
+      backgroundSize: 'cover',
+      backgroundPosition: 'center',
+    };
+  
+
     return (
-        <div className='bg-lavanda-200 drop-shadow-lg rounded-md p-4'>
+      <div className='relative group'>
+        <div className='bg-lavanda-200 drop-shadow-lg h-[250px] rounded-md p-4' style={backgroundImageStyle}>
           <div className='flex gap-3 items-center p-2 mb-3 justify-between'>
-            <button onClick={() => deleteCat(cat)}>
-            <TrashIcon className="w-5 h-5 text-lavanda-500"/>
+            <button onClick={() => deleteCat(cat)} className='z-10'>
+            <TrashIcon className="w-6 h-6 text-lavanda-50"/>
             </button>
-            <Link href={`/cats/edit/${cat._id}`}>
-              <PencilIcon className="w-5 h-5 text-lavanda-500"/>
+            <Link href={`/cats/edit/${cat._id}`} className='z-10'>
+              <PencilIcon className="w-6 h-6 text-lavanda-50"/>
             </Link>
           </div>
-          <div className='p-1 border-t border-lavanda-500'>
-            <h1 className='text-xl mb-2'>{cat.name}</h1>
+          {!cat.images || cat.images.length === 0 && (
+            <>
+            <div className='p-2 mt-4 z-10'>
+              <h1 className='text-xl text-center text-lavanda-500 mb-2'>{cat.name}</h1>
+            </div>
+            <div className="p-1 h-auto rounded-md">
+            <p className="text-lg text-center text-lavanda-500 mb-2">{cat.description}</p>
           </div>
-          <div className="p-1 h-auto rounded-md">
-          <p className="text text-lg">{cat.description}</p>
+            </>
+            
+          )}
+          <div className={'hover-visible'}>
+            <div className='p-1 mt-24'>
+              <h1 className='text-xl text-lavanda-50 mb-2'>{cat.name}</h1>
+            </div>
+            <div className="p-1 h-auto rounded-md">
+              <p className="text-lavanda-50 text-lg">{cat.description}</p>
+            </div>
+            <div className='p-1 mb-2'>
+              <p className='text-lavanda-50'>{cat.dataBirth}</p>
+            </div>
           </div>
-          {/* <div className='p-1'>
-            <img src={cat?.images[0]} alt="product img" className='h-24 w-24 rounded-md'/>
-          </div> */}
-          <div className='p-1 mb-2'>
-          <p className='text-gray-600'>{cat.dataBirth}</p>
-          </div>
-        
         </div>
+      </div>
+        
       )
 };
 

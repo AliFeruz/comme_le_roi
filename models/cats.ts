@@ -14,7 +14,7 @@ const CatsSchema = new Schema({
         required: true
     },
     images: [{
-        id: { type: mongoose.Types.ObjectId },
+        id: { type: String },
         link: { type: String }
     }],
     category: {
