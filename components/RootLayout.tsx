@@ -36,7 +36,7 @@ const RootLayout = ({ children }: { children: ReactNode }) => {
 
 
   return (
-    <main className='flex min-h-screen bg-lavanda-100'>
+    <main className='flex min-h-screen bg-lavanda-50'>
       <Topbar/>
       {isAboveMediumScreens && (
         <div className='w-2/6 sx:hidden mt-4'>
@@ -44,7 +44,7 @@ const RootLayout = ({ children }: { children: ReactNode }) => {
         </div>
       )}
       
-      <div className="bg-lavanda-50 border border-lavanda-500 drop-shadow-xl 
+      <div className="bg-white border border-lavanda-500 drop-shadow-xl 
       mt-24 md:mt-4 h-auto w-full p-4 md:w-4/6 m-2 md:mr-3 rounded-lg">
       {children}
       </div> 

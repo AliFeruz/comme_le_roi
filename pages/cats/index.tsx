@@ -19,15 +19,16 @@ const Cats = () => {
   return (
     <RootLayout>
       <div className='mt-3'>
-        <Link href={'/cats/newcat'} className='flex bg-lavanda-200 w-1/2 rounded-lg py-2 px-2.5'>
+        <Link href={'/cats/newcat'} className='flex bg-lavanda-200 w-1/2 
+        justify-center items-center rounded-lg py-2 px-2.5'>
           <PlusCircleIcon className='w-8 h-8 text-lavanda-500'/>
-          <h1 className='text-2xl ml-3 font-semibold'>Add new CAT</h1>
+          <h1 className='text-2xl ml-3 font-bold'>Add new CAT</h1>
         </Link>
       </div>
       <div className='p-2 my-4 text-start'>
       <h1 className='text-2xl font-bold'>Cats</h1>
       </div>
-      <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4'>
+      <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 mx-3'>
         {cats.slice().reverse().map((cat) => (
           <CatCard key={cat._id} cat={cat} />
         ))}

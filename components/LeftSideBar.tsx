@@ -6,7 +6,7 @@ import { signOut, useSession } from 'next-auth/react';
 const LeftSideBar = () => {
     const {data:session} = useSession();
     const inactivlink = 'flex gap-4 bg-lavanda-200 drop-shadow-xl rounded-lg border-2 border-lavanda-600 justify-center items-center p-2 text-2xl';
-    const activlink = inactivlink + ' bg-lavanda-400 text-lavanda-950 rounded-lg';
+    const activlink = inactivlink + ' bg-slate-50 text-lavanda-950 rounded-lg';
     const router = useRouter();
     const pathname = router.pathname;
 
@@ -31,22 +31,22 @@ const LeftSideBar = () => {
         <div className='flex flex-col min-h-[70vh] justify-between'>
             <div className='flex flex-col gap-6'>
             <Link href={'/'} className={pathname === '/' ? activlink : inactivlink}>
-            <h1>Dashboard</h1>
+            <h1>Панель приборов</h1>
             </Link>
             <Link href={'/cats'} className={pathname.includes('/cats') ? activlink : inactivlink}>
-            <h1> Cats</h1>
+            <h1>Кошки</h1>
             </Link>
             <Link href={'/categories'} 
             className={pathname.includes('/categories') ? activlink : inactivlink}>
-              <h1>Categories</h1>
+              <h1>Категории</h1>
             </Link>
             <Link href={'/news'} 
             className={pathname.includes('/news') ? activlink : inactivlink}>
-            <h1>News</h1>
+            <h1>Новости</h1>
             </Link>
             <Link href={'/settings'} 
             className={pathname.includes('/settings') ? activlink : inactivlink}>
-              <h1>Settings</h1>    
+              <h1>Настройки</h1>    
             </Link>
             </div>
             <div className='px-2 flex justify-center'>

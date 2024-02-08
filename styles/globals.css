@@ -8,7 +8,7 @@ h1 {
 }
 
 label {
-  @apply text-lavanda-900 text-xl mb-2
+  @apply text-lavanda-900 text-xl mb-3
 }
 
 input, textarea {
@@ -26,10 +26,24 @@ input:focus, textarea:focus{
   }
 
   .btn-primary {
-    @apply bg-lavanda-400 hover:bg-lavanda-200 py-1.5 my-2 px-2.5 w-auto rounded-md;
+    @apply bg-lavanda-300 text-slate-800 text-xl font-bold hover:bg-lavanda-100 text-center py-1 w-40 px-2.5 rounded-md;
   }
   .hover-visible {
     @apply absolute top-0 left-0 w-full h-full opacity-0 bg-black bg-opacity-50 transition-opacity duration-300 group-hover:opacity-100
   }
 };
 
+table.basic{
+  @apply w-full rounded-md shadow-md;
+}
+table.basic thead tr td,
+table.basic tbody tr th
+{
+  @apply text-gray-800 uppercase border mt-3 border-gray-400 px-4 py-2;
+}
+table.basic tr td{
+  @apply px-4 py-1;
+}
+table.basic a{
+  @apply px-4 rounded-sm inline-flex mx-1 items-center gap-1 text-sm py-1;
+}

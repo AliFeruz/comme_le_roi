@@ -5,16 +5,22 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useState } from 'react'
 import Loader from '../Loader';
+import { ReactSortable } from 'react-sortablejs';
 
 type Props = {
   catInfo?: Cat;
+}
+
+interface ItemInterface {
+  id: string;
+  link: string;
 }
 
 const CatForm = ({catInfo}: Props) => {
   const [name, setName] = useState(catInfo?.name || '');
   const [description, setDescription] = useState(catInfo?.description || '');
   const [dataBirth, setDataBirth] = useState (catInfo?.dataBirth || '');
-  const [images, setImages] = useState(catInfo?.images || []);
+  const [images, setImages] = useState<ItemInterface[]>(catInfo?.images || []);
   const [isuploading, setIsUploading] = useState(false);
 
   const router = useRouter();
@@ -49,6 +55,7 @@ const CatForm = ({catInfo}: Props) => {
   async function uploadImages(e: React.ChangeEvent<HTMLInputElement>){
     const files = Array.from(e.target?.files || []);
     if (files.length > 0) {
+      setIsUploading(true)
       const data = new FormData();
       files.forEach(file => data.append('file', file));
       const res = await axios.post('/api/upload', data);
@@ -59,6 +66,7 @@ const CatForm = ({catInfo}: Props) => {
     }
   }
 
+ 
   return (
     <div className='w-full flex justify-center'>
     <form onSubmit={saveCats} className='flex flex-col w-5/6 mt-5'>
@@ -66,14 +74,16 @@ const CatForm = ({catInfo}: Props) => {
       <input type="text" placeholder='cat name' value={name}
       onChange={(e) => setName(e.target.value)}/>
       <label className='text-start'>Photos</label>
-      <div className='p-1 flex gap-4'>
-      {!!images?.length && images?.map((image, index) => (
-        <div key={index}>
-          <img src={image.link} alt="product image" className='w-24 h-24 object-cover rounded-md'/>
+      <div className='p-1 flex flex-wrap gap-2'>
+        <ReactSortable list={images} setList={setImages} className='flex gap-2 flex-wrap'>
+        {!!images?.length && images?.map((image, index) => (
+        <div key={image?.id || index}>
+          <img src={image.link} alt="cat image" className='w-24 h-24 object-cover rounded-md'/>
         </div>
       ))}
+        </ReactSortable> 
       {isuploading && (
-        <div className='p-1 items-center flex'>
+        <div className='h-24 flex items-center justify-center p-2'>
          <Loader/>
         </div>
       )}

@@ -37,7 +37,6 @@ const CatCard = ({ cat, swal, ...props }: Props) => {
       backgroundSize: 'cover',
       backgroundPosition: 'center',
     };
-  
 
     return (
       <div className='relative group'>
@@ -58,8 +57,7 @@ const CatCard = ({ cat, swal, ...props }: Props) => {
             <div className="p-1 h-auto rounded-md">
             <p className="text-lg text-center text-lavanda-500 mb-2">{cat.description}</p>
           </div>
-            </>
-            
+            </>    
           )}
           <div className={'hover-visible'}>
             <div className='p-1 mt-24'>
