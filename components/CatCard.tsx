@@ -21,7 +21,7 @@ const CatCard = ({ cat, swal, ...props }: Props) => {
             text: `Do you want to delete ${cat.name}`,
             showCancelButton: true,
             confirmButtonText: 'Yes, Delete!',
-            confirmButtonColor: '#e8aef9',
+            confirmButtonColor: '#d55',
             reverseButtons: true
         }).then(async (result: any) => {
             if (result.isConfirmed) {
@@ -59,15 +59,9 @@ const CatCard = ({ cat, swal, ...props }: Props) => {
           </div>
             </>    
           )}
-          <div className={'hover-visible'}>
-            <div className='p-1 mt-24'>
+          <div className={'hover-visible rounded-md px-3'}>
+            <div className='p-1 mt-48'>
               <h1 className='text-xl text-lavanda-50 mb-2'>{cat.name}</h1>
-            </div>
-            <div className="p-1 h-auto rounded-md">
-              <p className="text-lavanda-50 text-lg">{cat.description}</p>
-            </div>
-            <div className='p-1 mb-2'>
-              <p className='text-lavanda-50'>{cat.dataBirth}</p>
             </div>
           </div>
         </div>

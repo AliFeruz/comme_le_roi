@@ -1,9 +1,9 @@
-import { Cat } from '@/types';
+import { Cat, Category } from '@/types';
 import { ArrowDownCircleIcon } from '@heroicons/react/24/outline';
 import axios from 'axios';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Loader from '../Loader';
 import { ReactSortable } from 'react-sortablejs';
 
@@ -22,13 +22,21 @@ const CatForm = ({catInfo}: Props) => {
   const [dataBirth, setDataBirth] = useState (catInfo?.dataBirth || '');
   const [images, setImages] = useState<ItemInterface[]>(catInfo?.images || []);
   const [isuploading, setIsUploading] = useState(false);
+  const [categories, setCategories] = useState<Category[]>([]);
+  const [category, setCategory] = useState(catInfo?.category || '')
 
   const router = useRouter();
+
+  useEffect(()=> {
+    axios.get('/api/categories').then((result) => {
+      setCategories(result.data)
+    })
+  },[])
 
   async function saveCats(e: React.FormEvent) {
    try {
     e.preventDefault();
-    const data = {name, description, dataBirth, images}
+    const data = {name, description, dataBirth, images, category}
     if(catInfo?._id) {
       const res = await axios.put('/api/cats', {...data, _id: catInfo._id})
       if(res.status === 200){
@@ -70,10 +78,21 @@ const CatForm = ({catInfo}: Props) => {
   return (
     <div className='w-full flex justify-center'>
     <form onSubmit={saveCats} className='flex flex-col w-5/6 mt-5'>
-      <label className='text-start'>Cat name</label>
+      <label className='text-start'>Имя Кошки или Кота</label>
       <input type="text" placeholder='cat name' value={name}
       onChange={(e) => setName(e.target.value)}/>
-      <label className='text-start'>Photos</label>
+      <label>Категория</label>
+      <select value={category.toString()}
+      onChange={(e) => setCategory(e.target.value)}
+      className='w-1/3 mb-2 items-start border border-lavanda-400 
+      p-1.5 rounded-md'>
+        <option value="">Без категирии</option>
+        {categories.length > 0 && categories.map((category: Category) => (
+        <option key={category._id}
+        value={category._id}>{category.name}</option>
+      ))}
+      </select>
+      <label className='text-start'>Фотографии</label>
       <div className='p-1 flex flex-wrap gap-2'>
         <ReactSortable list={images} setList={setImages} className='flex gap-2 flex-wrap'>
         {!!images?.length && images?.map((image, index) => (
@@ -99,15 +118,15 @@ const CatForm = ({catInfo}: Props) => {
           </div>
         )}
       </div>
-      <label>Cat description</label>
+      <label>Описание животного</label>
       <textarea placeholder='description' value={description}
       onChange={(e) => setDescription(e.target.value)}/>
-      <label>Day of birth (d.m.y)</label>
+      <label>Дата рождения в формате (день/месяц/год)</label>
       <input type='text' placeholder='day of birth' value={dataBirth}
       onChange={(e) => setDataBirth(e.target.value)}/>
-      <div className='flex justify-between'>
-      <Link href={'/cats'} className='btn-primary'>Cancel</Link>
-      <button type='submit'className='btn-primary'>Save</button>
+      <div className='flex gap-2 justify-between mt-2'>
+      <Link href={'/cats'} className='btn-primary'>Отмена</Link>
+      <button type='submit'className='btn-primary'>Сохранить</button>
       </div>
       </form>
     </div>

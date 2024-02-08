@@ -26,10 +26,12 @@ input:focus, textarea:focus{
   }
 
   .btn-primary {
-    @apply bg-lavanda-300 text-slate-800 text-xl font-bold hover:bg-lavanda-100 text-center py-1 w-40 px-2.5 rounded-md;
+    @apply bg-lavanda-300 text-slate-800 text-xl font-bold 
+    hover:bg-lavanda-100 text-center py-1 w-40 px-2.5 rounded-md;
   }
   .hover-visible {
-    @apply absolute top-0 left-0 w-full h-full opacity-0 bg-black bg-opacity-50 transition-opacity duration-300 group-hover:opacity-100
+    @apply absolute top-0 left-0 w-full h-full opacity-0 bg-black 
+    bg-opacity-50 transition-opacity duration-300 group-hover:opacity-100;
   }
 };
 

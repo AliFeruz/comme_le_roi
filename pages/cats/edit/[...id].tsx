@@ -25,7 +25,7 @@ const EditCat = () => {
     <RootLayout>
       
       <div className='m-4'>
-      <h1 className='text-3xl text-start text-lavanda-700'>Edit cat info</h1>
+      <h1 className='text-3xl text-start text-lavanda-700'>Редактируй данные животного</h1>
       </div>
       <div className='flex justify-center w-full'>
       {catInfo && <CatForm catInfo={catInfo}/>}

@@ -11,6 +11,7 @@ export type Category = {
         _id: number | string;
         name: string;
     };
+    properties?: object;
 }
 
 export type Cat = {
@@ -20,7 +21,7 @@ export type Cat = {
     dataBirth: string;
     images?: Image[];
     category?: Types.ObjectId;
-    
+    properties?: object
 }
 
 export type News = {
@@ -29,3 +30,9 @@ export type News = {
     info: string;
     images: Image[];
 }
+
+export type Property = {
+    _id?: number;
+    name: string;
+    values: string[];
+  }
