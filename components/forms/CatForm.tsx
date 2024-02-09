@@ -1,4 +1,4 @@
-import { Cat, Category } from '@/types';
+import { Cat, Category, Property } from '@/types';
 import { ArrowDownCircleIcon } from '@heroicons/react/24/outline';
 import axios from 'axios';
 import Link from 'next/link';
@@ -16,6 +16,7 @@ interface ItemInterface {
   link: string;
 }
 
+
 const CatForm = ({catInfo}: Props) => {
   const [name, setName] = useState(catInfo?.name || '');
   const [description, setDescription] = useState(catInfo?.description || '');
@@ -23,7 +24,8 @@ const CatForm = ({catInfo}: Props) => {
   const [images, setImages] = useState<ItemInterface[]>(catInfo?.images || []);
   const [isuploading, setIsUploading] = useState(false);
   const [categories, setCategories] = useState<Category[]>([]);
-  const [category, setCategory] = useState(catInfo?.category || '')
+  const [category, setCategory] = useState(catInfo?.category || '');
+  const [productProp, setProductProp] = useState<{ [key: string]: string }>(catInfo?.properties as { [key: string]: string } || {})
 
   const router = useRouter();
 
@@ -36,7 +38,7 @@ const CatForm = ({catInfo}: Props) => {
   async function saveCats(e: React.FormEvent) {
    try {
     e.preventDefault();
-    const data = {name, description, dataBirth, images, category}
+    const data = {name, description, dataBirth, images, category, properties: productProp }
     if(catInfo?._id) {
       const res = await axios.put('/api/cats', {...data, _id: catInfo._id})
       if(res.status === 200){
@@ -51,6 +53,7 @@ const CatForm = ({catInfo}: Props) => {
         setName('');
         setDescription('');
         setDataBirth('');
+        setProductProp({})
         router.push('/cats')
       }
     }
@@ -74,6 +77,32 @@ const CatForm = ({catInfo}: Props) => {
     }
   }
 
+  // function setProductProperty(propName: string, value: string) {
+  //   setProductProp((prevProductProps: Property[]) =>
+  //     prevProductProps.map((prop) =>
+  //       prop.name === propName ? { ...prop, values: [value] } : prop
+  //     )
+  //   );
+  // }
+  function setProductProperty(propName: string, value: string) {
+    setProductProp((prev: Record<string, string>) => {
+      const newProductProps: Record<string, string> = { ...prev };
+      newProductProps[propName] = value;
+      return newProductProps;
+    });
+  }
+
+  const propertiesToFill = [];
+  if (categories.length > 0 && category) {
+    let selCatInfo = categories.find(({_id}) => _id.toString() === category);
+    propertiesToFill.push(...Object.values(selCatInfo?.properties ?? []));
+    while(selCatInfo?.parentCategory?._id) {
+      const parentCat = categories.find(({_id}) => _id.toString() === selCatInfo?.parentCategory?._id);
+      propertiesToFill.push(...Object.values(parentCat?.properties || []));
+      selCatInfo = parentCat;
+    }
+  }
+  
  
   return (
     <div className='w-full flex justify-center'>
@@ -92,6 +121,17 @@ const CatForm = ({catInfo}: Props) => {
         value={category._id}>{category.name}</option>
       ))}
       </select>
+      {propertiesToFill.length > 0 && propertiesToFill.map((property: Property) => (
+      <div key={property._id} className='flex gap-2 my-2'>
+        <div className='text-xl'>{property.name}</div>
+        <select value={productProp[property.name]}
+        onChange={(e) => setProductProperty(property.name, e.target.value)}>
+        {property.values.map((value) => (
+          <option key={value} value={value}>{value}</option>
+        ))}
+        </select>
+      </div>
+    ))}
       <label className='text-start'>Фотографии</label>
       <div className='p-1 flex flex-wrap gap-2'>
         <ReactSortable list={images} setList={setImages} className='flex gap-2 flex-wrap'>

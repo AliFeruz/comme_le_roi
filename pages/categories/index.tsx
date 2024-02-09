@@ -65,7 +65,7 @@ const Categories = ({ swal, ...props }: { swal: any }) => {
       name,
       properties:properties.map(p => ({
         name:p.name,
-        values:p.values,
+        values:p.values
       })),
     };
 
