@@ -8,6 +8,7 @@ import { withSwal } from 'react-sweetalert2';
 interface RequestData {
   name: string;
   parentCategory?: string;
+  properties?: Property[];
 }
 
 const Categories = ({ swal, ...props }: { swal: any }) => {
@@ -47,12 +48,26 @@ const Categories = ({ swal, ...props }: { swal: any }) => {
     setEditingCategory(category);
     setName(category.name);
     setParentCategory(category?.parentCategory?._id?.toString() || '');
+    setProperties(category?.properties || [])
+  }
+
+  function cancelUpdate(){
+    setEditingCategory(null);
+    setName('');
+    setParentCategory('');
+    setProperties([]);
   }
 
 
   async function saveCategory(e: React.FormEvent){
     e.preventDefault();
-    const data: RequestData = {name};
+    const data: RequestData = {
+      name,
+      properties:properties.map(p => ({
+        name:p.name,
+        values:p.values,
+      })),
+    };
 
     if (parentCategory !== '') {
       data.parentCategory = parentCategory;
@@ -68,6 +83,7 @@ const Categories = ({ swal, ...props }: { swal: any }) => {
     }  
       setName('');
       setParentCategory('');
+      setProperties([]);
       fetchCategories();
   }
 
@@ -81,7 +97,7 @@ const Categories = ({ swal, ...props }: { swal: any }) => {
 function handlePropertyName(index: number, property: Property, newName: string) {
     setProperties((prev) => {
       const updatedProperties = [...prev];
-      updatedProperties[index].name = newName;
+      updatedProperties[index] = { ...updatedProperties[index], name: newName };
       return updatedProperties;
     });
   }
@@ -89,7 +105,7 @@ function handlePropertyName(index: number, property: Property, newName: string) 
   function handlePropertyValues(index: number, property:Property, newValues: string) {
     setProperties((prev) => {
       const updatedProperties = [...prev];
-      updatedProperties[index].values = newValues.split(',');
+      updatedProperties[index] = { ...updatedProperties[index], values: newValues.split(',') };
       return updatedProperties;
     });
   }
@@ -104,13 +120,21 @@ function removeProperty(index: number) {
       <div className='mt-2 bg-lavanda-200 w-full md:w-1/2 mb-2 rounded-lg py-2 px-2.5'>
       <h1 className='text-3xl font-bold text-center'>Категории</h1>
     </div>
-    <label>{editingCategory ? `Редактируемая категория 
-    ${editingCategory.name}`: 'Создай категорию'}</label>
+    <div className='mb-3 mt-2'>
+    {editingCategory ? (
+      <div className='flex justify-between'>
+      <label>Редактируемая категория <span className='font-bold text-xl text-cyan-500'>{editingCategory.name}</span></label>
+      <button onClick={cancelUpdate} className='btn-primary'>Отменить</button>
+      </div>
+    ) : (
+      <label>Создай новую категорию</label>
+    )}
+    </div>
     <form onSubmit={saveCategory} className='flex items-center gap-1 md:gap-4'>
     <input type="text" placeholder='Category name' 
     className='mb-0' onChange={(e) => setName(e.target.value)}
     value={name}/>
-    <select className='w-30 border border-lavanda-400 p-1.5 rounded-md'
+    <select className='w-30 border border-cyan-500 p-1.5 rounded-md'
     value={parentCategory} onChange={(e) => setParentCategory(e.target.value)}>
       <option value="">No parent category</option>
       {categories.length > 0 && categories.map((category: Category) => (
@@ -123,7 +147,7 @@ function removeProperty(index: number) {
     <div className='mt-4'>
       <button className='flex bg-lavanda-200 md:w-1/2 
         justify-between items-center rounded-lg py-1.5 px-6' onClick={addProperty}>
-      <PlusCircleIcon className='w-8 h-8 text-lavanda-500'/>
+      <PlusCircleIcon className='w-8 h-8 text-cyan-500'/>
       <h1 className='md:text-2xl md:font-bold'>Добавить характеристику</h1>
       </button>
     </div>
@@ -143,47 +167,22 @@ function removeProperty(index: number) {
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 md:gap-4 mt-4">
         {categories.map((category: Category) => (
-          <div key={category._id} className="bg-lavanda-100 p-4 h-40 rounded-md shadow-md">
+          <div key={category._id} className="bg-lavanda-50 border-2 border-cyan-500 p-4 h-40 rounded-md shadow-md">
             <div className='flex gap-3 items-center p-2 mb-3 justify-between'>
             <button onClick={() => deleteCategory(category)}>
-            <TrashIcon className="w-6 h-6 text-lavanda-900"/>
+            <TrashIcon className="w-5 h-5 text-cyan-500"/>
             </button>
             <button onClick={() => editCategory(category)}>
-              <PencilIcon className="w-6 h-6 text-lavanda-900"/>
+              <PencilIcon className="w-5 h-5 text-cyan-500"/>
             </button>
           </div>
-            <div className="text-xl font-bold mb-2">{category.name}</div>
-            <div>{category.parentCategory?.name}</div>
+            <div className="flex flex-col p-3">
+            <h1 className='text-xl text-start font-bold mb-2'>{category.name}</h1>
+            <h1 className='text-xl mb-2'>{category.parentCategory?.name}</h1>
+            </div>
           </div>
         ))}
       </div>
-
-    {/* <table className='mt-4 bg-lavanda-100 flex-col w-full shadow-md rounded-md'>
-      <thead>
-      <tr className='border-b-2 border-slate-400'>
-        <td className='p-2 text-xl font-bold mx-2'>Category name</td>
-        <td className='p-2 text-xl font-bold mx-2'>Parent category</td>
-      </tr>
-      </thead>
-      <tbody>
-        {categories.length > 0 && categories.map((category: Category) => (
-            <tr key={category._id}>
-            <td className='p-2 text-xl border-b-2 
-            border-slate-300'>{category.name}</td>
-            <td className='p-2 text-xl border-b-2 
-            border-slate-300'>{category.parentCategory?.name}</td>
-            <td>
-              <button className='btn-primary mx-2 my-2' 
-              onClick={() => editCategory(category)}>Редакт...</button>
-            </td>
-            <td>
-              <button className='btn-primary'
-              onClick={() => deleteCategory(category)}>Удалить</button>
-            </td>
-          </tr>
-          ))}
-      </tbody>   
-    </table> */}
       </div>
     </RootLayout>
   )

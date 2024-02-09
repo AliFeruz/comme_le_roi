@@ -44,7 +44,7 @@ const RootLayout = ({ children }: { children: ReactNode }) => {
         </div>
       )}
       
-      <div className="bg-white border border-lavanda-500 drop-shadow-xl 
+      <div className="bg-white border border-cyan-500 drop-shadow-xl 
       mt-24 md:mt-4 h-auto w-full p-4 md:w-4/6 m-2 md:mr-3 rounded-lg">
       {children}
       </div> 

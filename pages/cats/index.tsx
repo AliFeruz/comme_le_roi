@@ -21,7 +21,7 @@ const Cats = () => {
       <div className='mt-3'>
         <Link href={'/cats/newcat'} className='flex bg-lavanda-200 md:w-1/2 
         justify-center items-center rounded-lg py-2 px-2.5'>
-          <PlusCircleIcon className='w-8 h-8 text-lavanda-500'/>
+          <PlusCircleIcon className='w-8 h-8 text-cyan-500'/>
           <h1 className='md:text-2xl ml-3 font-bold'>Добавить новую кошку</h1>
         </Link>
       </div>

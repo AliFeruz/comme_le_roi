@@ -27,20 +27,28 @@ export default async function handler(
       }
 
     if(method === 'POST') {
-        const {name, description, dataBirth, images, category} = req.body;
+        const {name, description, dataBirth, images, category, properties} = req.body;
         const catsDoc = await Cats.create({
             name,
             description,
             dataBirth,
             images,
-            category
+            category,
+            properties
         });
         res.status(200).json(catsDoc);
     }
 
     if(method === 'PUT') {
-        const {name, description, dataBirth, _id, images, category} = req.body;
-        const updatedCatInfo = await Cats.findOneAndUpdate({_id}, {name, description, dataBirth, images, category})
+        const {name, description, dataBirth, _id, images, category, properties} = req.body;
+        const updatedCatInfo = await Cats.findOneAndUpdate({_id}, {
+            name, 
+            description, 
+            dataBirth, 
+            images, 
+            category,
+            properties
+        })
         res.status(200).json(updatedCatInfo);
     }
   

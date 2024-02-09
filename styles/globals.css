@@ -4,7 +4,7 @@
 
 
 h1 {
-  @apply text-lavanda-950
+  @apply text-cyan-950
 }
 
 label {
@@ -12,11 +12,11 @@ label {
 }
 
 input, textarea {
-  @apply border-2 border-lavanda-400 rounded-md p-1 w-full mb-2;
+  @apply border-2 border-cyan-500 rounded-md p-1 w-full mb-2;
 }
 
 input:focus, textarea:focus{
-  @apply border-lavanda-600
+  @apply border-blue-600
 }
 
 
@@ -26,7 +26,7 @@ input:focus, textarea:focus{
   }
 
   .btn-primary {
-    @apply bg-lavanda-300 text-slate-800 text-xl font-bold 
+    @apply bg-lavanda-300 border-2 border-cyan-500 text-slate-800 text-xl font-bold 
     hover:bg-lavanda-100 text-center py-1 w-40 px-2.5 rounded-md;
   }
   .hover-visible {
@@ -34,18 +34,3 @@ input:focus, textarea:focus{
     bg-opacity-50 transition-opacity duration-300 group-hover:opacity-100;
   }
 };
-
-table.basic{
-  @apply w-full rounded-md shadow-md;
-}
-table.basic thead tr td,
-table.basic tbody tr th
-{
-  @apply text-gray-800 uppercase border mt-3 border-gray-400 px-4 py-2;
-}
-table.basic tr td{
-  @apply px-4 py-1;
-}
-table.basic a{
-  @apply px-4 rounded-sm inline-flex mx-1 items-center gap-1 text-sm py-1;
-}

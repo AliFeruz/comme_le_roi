@@ -84,7 +84,7 @@ const CatForm = ({catInfo}: Props) => {
       <label>Категория</label>
       <select value={category.toString()}
       onChange={(e) => setCategory(e.target.value)}
-      className='w-1/3 mb-2 items-start border border-lavanda-400 
+      className='w-1/3 mb-2 items-start border border-cyan-400 
       p-1.5 rounded-md'>
         <option value="">Без категирии</option>
         {categories.length > 0 && categories.map((category: Category) => (
@@ -107,9 +107,9 @@ const CatForm = ({catInfo}: Props) => {
         </div>
       )}
       <label className='w-24 h-24 cursor-pointer flex gap-2 flex-col 
-      items-center justify-center bg-white border mb-3 border-lavanda-500 rounded-md'>
-      <ArrowDownCircleIcon className="w-8 h-8 text-lavanda-500"/>
-      <p className='text-sm text-slate-600'>Upload</p>
+      items-center justify-center bg-white border mb-3 border-cyan-500 rounded-md'>
+      <ArrowDownCircleIcon className="w-8 h-8 text-cyan-500"/>
+      <p className='text-sm text-cyan-500'>Upload</p>
       <input type="file" onChange={uploadImages} className='hidden'/>
       </label>
         {!catInfo?.images?.length && (
