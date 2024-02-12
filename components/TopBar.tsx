@@ -45,28 +45,28 @@ const Topbar = () => {
             <div className="ml-[10%] flex flex-col justify-center items-center gap-10 text-2xl">
            <button onClick={() => setIsMenuToggled(false)}>
            <Link href={'/cats'}>
-            <h1>Cats</h1>
+            <h1>Кошки</h1>
            </Link>
            </button>
            <button onClick={() => setIsMenuToggled(false)}>
            <Link href={'/categories'}>
-            <h1>Categories</h1>
+            <h1>Категории</h1>
            </Link>
            </button>
            <button onClick={() => setIsMenuToggled(false)}>
            <Link href={'/news'}>
-            <h1>News</h1>
+            <h1>Новости</h1>
            </Link>
            </button>
            <button onClick={() => setIsMenuToggled(false)}>
            <Link href={'/settings'}>
-            <h1>Settings</h1>
+            <h1>Настройки</h1>
            </Link>
            </button>
             </div>
             <div className="mt-24 flex justify-center">
             <button onClick={logOut} className="flex items-center gap-3">
-            <h1 className="text-xl">Signout</h1>    
+            <h1 className="text-xl">Выйти</h1>    
             <ArrowLeftStartOnRectangleIcon className="h-8 w-8 text-emerald-950"/>
             </button>
             </div>
