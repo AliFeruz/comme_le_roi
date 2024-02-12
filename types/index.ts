@@ -21,7 +21,7 @@ export type Cat = {
     dataBirth: string;
     images?: Image[];
     category?: Types.ObjectId;
-    properties?: Property[] | object
+    properties?: object
 }
 
 export type News = {

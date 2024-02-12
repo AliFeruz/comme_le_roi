@@ -77,13 +77,6 @@ const CatForm = ({catInfo}: Props) => {
     }
   }
 
-  // function setProductProperty(propName: string, value: string) {
-  //   setProductProp((prevProductProps: Property[]) =>
-  //     prevProductProps.map((prop) =>
-  //       prop.name === propName ? { ...prop, values: [value] } : prop
-  //     )
-  //   );
-  // }
   function setProductProperty(propName: string, value: string) {
     setProductProp((prev: Record<string, string>) => {
       const newProductProps: Record<string, string> = { ...prev };
