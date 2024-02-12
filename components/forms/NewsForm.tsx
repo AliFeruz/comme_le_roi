@@ -5,7 +5,7 @@ import { useRouter } from 'next/router';
 import React, { useState } from 'react'
 
 type Props = {
-  newsInfo: News
+  newsInfo?: News
 }
 
 const NewsForm = ({newsInfo}: Props) => {
