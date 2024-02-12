@@ -8,7 +8,7 @@ import React, { useEffect, useState } from 'react'
 
 
 
-const News = () => {
+const Newspage = () => {
   const [news, setNews] = useState<News[]>([])
 
   useEffect(()=> {
@@ -38,4 +38,4 @@ const News = () => {
   )
 }
 
-export default News
+export default Newspage
