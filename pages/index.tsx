@@ -9,7 +9,7 @@ export default function Home() {
     <RootLayout>
       <div className="p-6 my-4">
         <h1 className="text-xl text-center">
-        Hello, 
+        Hello, {" "}
         <span className="text-lavanda-600 text-2xl uppercase">
         {session?.user?.name}!</span>
         </h1>

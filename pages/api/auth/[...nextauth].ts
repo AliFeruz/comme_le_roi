@@ -3,6 +3,7 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from 'bcrypt';
 import { mongooseConnect } from "@/lib/mongoose";
 import { User } from "@/models/user";
+import clientPromise from "@/lib/mongodb";
 
 type Credentials = {
   email: string;
@@ -46,7 +47,10 @@ export const authOptions = {
     updateAge: 60 * 60 // 1 hour
   },
   secret: process.env.NEXTAUTH_SECRET,
-  debug: process.env.NODE_ENV === "development",
+  debug: process.env.NODE_ENV === "test",
+  pages: {
+    signIn: "/",
+  },
 }
 
 export default NextAuth(authOptions);
