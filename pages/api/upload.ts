@@ -4,7 +4,7 @@ import { PutObjectCommand, S3Client, S3ClientConfig } from '@aws-sdk/client-s3';
 import fs from "fs";
 import mime from 'mime-types';
 import { mongooseConnect } from "@/lib/mongoose";
-import { isAdminRequest } from "./auth/[...nextauth]";
+
   
 
 const bucketName = 'ecommerce-af';
@@ -30,7 +30,6 @@ export default async function handler(
 
     await mongooseConnect();
 
-    await isAdminRequest({req, res});
 
     const form = new multiparty.Form();
     const {fields, files} : FormData = await new Promise(async (resolve, reject) => {

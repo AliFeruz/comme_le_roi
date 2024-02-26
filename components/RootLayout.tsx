@@ -1,10 +1,10 @@
 import React, { ReactNode } from 'react'
 import Loader from './Loader';
-import { signIn, useSession } from 'next-auth/react';
+import { useSession } from 'next-auth/react';
 import Topbar from './TopBar';
 import LeftSideBar from './LeftSideBar';
 import useMediaQuery from '@/hooks/useMediaQuery';
-
+import LoginForm from './forms/LoginForm';
 
 
 const RootLayout = ({ children }: { children: ReactNode }) => {
@@ -21,13 +21,7 @@ const RootLayout = ({ children }: { children: ReactNode }) => {
     return (
       <main className='min-h-screen w-screen flex items-center 
       justify-center bg-gradient-to-r from-lavanda-200 to-lavanda-400'>
-      <div className='w-[450px] h-[300px] flex flex-col items-center justify-center rounded-md'>
-      <h1 className='p-2 my-4 text-2xl'>This website is belong to cattery Comme Le Roi 
-      and only owner of the website can login. If you have any questions, please write an email to: aliferuzcode@gmail.com</h1>
-      <button onClick={() => signIn('google')} className="bg-sky-400 
-      border-2 border-blue-600 h-[50px] w-[160px] text-slate-50 object-fit rounded-md 
-      hover:bg-lavanda-100 hover:text-slate-600">Login with Google</button>
-      </div>
+      <LoginForm/>
     </main>
     )
   }

@@ -2,7 +2,6 @@ import React from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { signOut, useSession } from 'next-auth/react';
-import Image from 'next/image';
 
 const LeftSideBar = () => {
     const {data:session} = useSession();
@@ -25,11 +24,7 @@ const LeftSideBar = () => {
         bg-clip-text text-transparent uppercase p-1">Comme Le Roi</h1></Link>
         <div className='flex w-4/5 bg-blue-100 border border-cyan-500 
         my-2 drop-shadow-xl mx-1 gap-2 p-1 rounded-lg items-center'>
-             <Image src={session?.user?.image || '@/public/next.svg'} alt="userimage"
-             width={48} 
-             height={48} 
-             className="w-8 rounded-full h-8"/>
-             <span className="px-2">{session?.user?.name}</span>
+          <span className="px-2 uppercase text-center">{session?.user?.name}</span>
            </div>
         </div>
         <div className='flex flex-col min-h-[70vh] justify-between'>

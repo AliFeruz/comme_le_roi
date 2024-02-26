@@ -1,38 +1,53 @@
-import NextAuth, { getServerSession } from "next-auth";
-import { MongoDBAdapter } from "@auth/mongodb-adapter";
-import GoogleProvider from "next-auth/providers/google";
-import clientPromise from "@/lib/mongodb";
+import NextAuth, { RequestInternal } from "next-auth";
+import CredentialsProvider from "next-auth/providers/credentials";
+import bcrypt from 'bcrypt';
+import { mongooseConnect } from "@/lib/mongoose";
+import { User } from "@/models/user";
 
-const adminEmails = ['aliferuzfox@gmail.com', 'miss.tanikoffa@gmail.com']
-
-const adapter = MongoDBAdapter(clientPromise) as any; 
+type Credentials = {
+  email: string;
+  password: string;
+};
 
 export const authOptions = {
-    providers: [
-        GoogleProvider({
-          clientId: process.env.GOOGLE_CLIENT_ID || "",
-          clientSecret: process.env.GOOGLE_CLIENT_SECRET || "",
-        }),
-      ],
-    adapter,
-    callbacks: {
-      session: ({ session } : any) => {
-        if (adminEmails.includes(session?.user?.email)){
-          return {
-            ...session,
-          };
-        } else {
-          return false
+  providers: [
+    CredentialsProvider({
+      name: 'credentials',
+      credentials: {},
+      authorize: async (credentials: Record<never, string> | undefined, req: Pick<RequestInternal, "body" | "query" | "headers" | "method">) => {
+        if (!credentials) {
+          return null;
         }
-      },
-    },
+
+        const { email, password } = credentials as Credentials;
+        try {
+          await mongooseConnect();
+          const user = await User.findOne({ email });
+
+          if (!user) {
+            return null;
+          }
+          const checkedPassword = await bcrypt.compare(password, user.password);
+
+          if (!checkedPassword) {
+            return null;
+          }
+          return user;
+        } catch (error) {
+          console.log('Error: ', error);
+          return null;
+        }
+      }
+    })
+  ],
+  session: {
+    jwt: true,
+    maxAge: 60 * 60 * 24, // 24 hours
+    updateAge: 60 * 60 // 1 hour
+  },
+  secret: process.env.NEXTAUTH_SECRET,
+  debug: process.env.NODE_ENV === "development",
 }
 
 export default NextAuth(authOptions);
 
-export async function isAdminRequest({req, res} : any){
-  const session = await getServerSession(req, res, authOptions);
-  if (!adminEmails.includes(session?.user?.email)){
-    throw 'You are not an admin!';
-  }
-}
